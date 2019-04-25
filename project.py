@@ -48,18 +48,21 @@ while 1:
                     print(students.show_all_students())
                     input("\npress any key to back:")
                     choose = 0
+                    continue
                 if choose == '2':
                     students = Student()
                     student_number = input("Enter student number: ")
                     print(students.show_a_student(student_number))
                     input("\npress any key to back:")
                     choose = 0
+                    continue
                 if choose == '3':
                     students = Student()
-                student_number = input("Enter student number: ")
-                print(students.search(student_number))
-                input("\npress any key to back:")
-                choose = 0
+                    student_number = input("Enter student number: ")
+                    print(students.search(student_number))
+                    input("\npress any key to back:")
+                    choose = 0
+                continue
             if choose == '2':
                 os.system('cls')
                 print("--Course Management Menu")
@@ -77,7 +80,6 @@ while 1:
                  sys.exit(0)
                if a == 'n':
                  continue
-
 
     if flag == 2:
        os.system('cls')

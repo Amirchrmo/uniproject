@@ -35,15 +35,16 @@ class Student():
         for i, item in enumerate(student_list):
             if item['studentID'] == student_number:
                 return student_list[i]
-            else:
-                return False
+
+        return False
     #         student curses
 
-    def search(self, student_number):
-        student_list = Student.list_std(self)
-        for i, item in enumerate(student_list):
-            if item['studentID'].__contains__(student_number):
-                return student_list[i]
+    # def search(self, student_number):
+    #     student_list = Student.list_std(self)
+    #     for i, item in enumerate(student_list):
+    #         if item['studentID'].__contains__(student_number):
+    #             student_list = student_list[i]
+    #     return student_list
 
     def show_all_students(self):
         las = Student.list_std(self)
@@ -58,6 +59,12 @@ class Student():
     def show_a_student(self, student_number):
         las = Student.browse(self, student_number)
         cnt = 0
-        return ("{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
+        if las == False:
+            return ('\033[31m' + "Not found!!" + '\033[0m')
+        else:
+            return ("{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
                                      las['fname'], las['lname'], las['avarage']))
 
+
+    def add(self, student_numer, fname, lname, avg):
+         pass
