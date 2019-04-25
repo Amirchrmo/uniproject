@@ -35,16 +35,26 @@ class Student():
         for i, item in enumerate(student_list):
             if item['studentID'] == student_number:
                 return student_list[i]
-
         return False
     #         student curses
 
-    # def search(self, student_number):
-    #     student_list = Student.list_std(self)
-    #     for i, item in enumerate(student_list):
-    #         if item['studentID'].__contains__(student_number):
-    #             student_list = student_list[i]
-    #     return student_list
+    def search(self, student_number):
+        findstd = []
+        student_list = Student.list_std(self)
+
+        with open("students.txt", "r") as studentsfile:
+            student_file = studentsfile.readlines()
+
+        b = False
+
+        for i, item in enumerate(student_file):
+            if item.__contains__(student_number):
+                findstd.append(student_list[i])
+                b = True
+        if(b):
+            return findstd
+        else:
+            return ('\033[31m' + "Not found!!" + '\033[0m')
 
     def show_all_students(self):
         las = Student.list_std(self)
@@ -65,6 +75,10 @@ class Student():
             return ("{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
                                      las['fname'], las['lname'], las['avarage']))
 
-
     def add(self, student_numer, fname, lname, avg):
-         pass
+        if Student.browse(self, student_numer) == False:
+            with open("students.txt", "a") as studentsfile:
+                studentsfile.write("{}, {}, {}, {}\n".format(student_numer, fname, lname, avg))
+            return True
+        else:
+            return False

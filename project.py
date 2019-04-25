@@ -31,7 +31,6 @@ def admin_li():
                 print("student number, fname, lname, avg\n")
                 print(students.show_all_students())
                 input("\npress any key to back:")
-                choose = 0
                 continue
 
             elif ch == '2':
@@ -39,7 +38,6 @@ def admin_li():
                 student_number = input("Enter student number: ")
                 print(students.show_a_student(student_number))
                 input("\npress any key to back:")
-                choose = 0
                 continue
 
             elif ch == '3':
@@ -47,9 +45,22 @@ def admin_li():
                 student_number = input("Enter student number: ")
                 print(students.search(student_number))
                 input("\npress any key to back:")
-                choose = 0
                 continue
 
+            elif ch == '4':
+                add_std = Student()
+                student_number = input("Enter student number: ")
+                fname = input("Enter student first name: ")
+                lname = input("Enter student last name: ")
+                avg = input("Enter student average: ")
+
+                if add_std.add(student_number, fname, lname, avg):
+                    print( green + "you added a student successfully." + endc)
+
+                else:
+                    print(red + "this student number is already exists!!" + endc)
+                input("\npress any key to back:")
+                continue
             elif ch == '7':
                 continue
 
@@ -95,10 +106,10 @@ if __name__ == "__main__":
     red = '\033[31m'
 
     while 1:
-        use = input("\tEnter your username:")
-        password = input("\tEnter your password:")
-        # use = 'admin'
-        # password = '1234'
+        # use = input("\tEnter your username:")
+        # password = input("\tEnter your password:")
+        use = 'admin'
+        password = '1234'
         login = Student()
         flag = login.login(use, password)
         flag = int(flag)
