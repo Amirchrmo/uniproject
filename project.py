@@ -1,4 +1,5 @@
 from stedent import Student
+from course import Course
 import os
 import sys
 
@@ -66,7 +67,38 @@ def admin_li():
             print("  |- 4) Add a Course")
             print("  |- 5) Edit a Course ")
             print("  |- 6) Remove a Course ")
-            choose = input("\nchoose(1_6):")
+            ch = input("\nchoose(1_6):")
+
+            if ch == '1':
+                students = Course()
+                # print("student number, fname, lname, avg\n")
+                print(students.show_all_courses())
+                input("\npress any key to back:")
+                choose = 0
+                continue
+
+            elif ch == '2':
+                students = Course()
+                student_number = input("Enter course number: ")
+                print(students.show_a_course(student_number))
+                input("\npress any key to back:")
+                choose = 0
+                continue
+
+            elif ch == '3':
+                students = Course()
+                cnumber = input("Enter course number: ")
+                print(students.search(cnumber))
+                input("\npress any key to back:")
+                choose = 0
+                continue
+
+            elif ch == '7':
+                continue
+
+            else :
+                print("You entered a wrong number. Please try again.")
+                continue
         if choose == '3':
            a = input(red + "are you sure(y/n)?" + endc)
            if a == 'y':
