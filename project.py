@@ -43,7 +43,7 @@ def admin_li():
             elif ch == '3':
                 students = Student()
                 student_number = input("Enter student number: ")
-                print(students.search(student_number))
+                print(students.show_search(student_number))
                 input("\npress any key to back:")
                 continue
 
