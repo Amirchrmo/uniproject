@@ -73,3 +73,11 @@ class Student():
         cnt = 0
         return ("{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
                                      las['fname'], las['lname'], las['avarage']))
+
+    def add(self, student_numer, fname, lname, avg):
+        if Student.browse(self, student_numer) == False:
+            with open("students.txt", "a") as studentsfile:
+                studentsfile.write("{}, {}, {}, {}\n".format(student_numer, fname, lname, avg))
+            return True
+        else:
+            return False
