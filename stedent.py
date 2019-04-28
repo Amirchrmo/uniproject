@@ -41,10 +41,22 @@ class Student():
     #         student curses
 
     def search(self, student_number):
+        findstd = []
         student_list = Student.list_std(self)
-        for i, item in enumerate(student_list):
-            if item['studentID'].__contains__(student_number):
-                return student_list[i]
+
+        with open("students.txt", "r") as studentsfile:
+            student_file = studentsfile.readlines()
+
+        b = False
+
+        for i, item in enumerate(student_file):
+            if item.__contains__(student_number):
+                findstd.append(student_list[i])
+                b = True
+        if(b):
+            return findstd
+        else:
+            return ('\033[31m' + "Not found!!" + '\033[0m')
 
     def show_all_students(self):
         las = Student.list_std(self)
