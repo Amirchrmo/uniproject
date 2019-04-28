@@ -15,9 +15,9 @@ class Course():
         return course_list
 
     def cbrowse(self, cnumber):
-        clist = Course.list_std(self)
+        clist = Course.list_cs(self)
         for i, item in enumerate(clist):
-            if item['studentID'] == cnumber:
+            if item['courseID'] == cnumber:
                 return clist[i]
 
         return False
@@ -31,7 +31,7 @@ class Course():
     #     return student_list
 
     def show_all_courses(self):
-        las = Course.list_std(self)
+        las = Course.list_cs(self)
         cnt = 0
         result = "All Courses :\n\n\t"
         for i, item in enumerate(las):
@@ -41,13 +41,13 @@ class Course():
         return result
 
     def show_a_course(self, cnumber):
-        las = Course.browse(self, cnumber)
+        las = Course.cbrowse(self, cnumber)
         cnt = 0
         if las == False:
             return ('\033[31m' + "Not found!!" + '\033[0m')
         else:
-            return ("{}) {}: {} - {}\n\t".format(cnt+1, item['courseID'],
-                                              item['cname'], item['tname']))
+            return ("{}) {}: {} - {}\n\t".format(cnt+1, las['courseID'],
+                                              las['cname'], las['tname']))
 
 
     def add(self, cnumer, cname, tname):

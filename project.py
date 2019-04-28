@@ -37,8 +37,20 @@ def admin_li():
 
             elif ch == '2':
                 students = Student()
+                courses = Course()
                 student_number = input("Enter student number: ")
                 print(students.show_a_student(student_number))
+
+                with open("student_courses.txt") as file:
+                    sac = file.readlines()
+
+                for item in sac:
+                    i = item.split(",")
+                    if (i[0] == student_number):
+                        showc = (courses.show_a_course(i[1].strip())).strip()
+                        print("\t" + showc[2:])
+
+
                 input("\npress any key to back:")
                 choose = 0
                 continue
