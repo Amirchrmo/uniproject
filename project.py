@@ -2,6 +2,7 @@ from stedent import Student
 import os
 import sys
 
+
 def admin_li():
     while 1:
         os.system('cls')
@@ -27,6 +28,7 @@ def admin_li():
             ch = input("\nchoose(1_7):")
 
             if ch == '1':
+                os.system('cls')
                 students = Student()
                 print("student number, fname, lname, avg\n")
                 print(students.show_all_students())
@@ -34,6 +36,7 @@ def admin_li():
                 continue
 
             elif ch == '2':
+                os.system('cls')
                 students = Student()
                 student_number = input("Enter student number: ")
                 print(students.show_a_student(student_number))
@@ -41,6 +44,7 @@ def admin_li():
                 continue
 
             elif ch == '3':
+                os.system('cls')
                 students = Student()
                 student_number = input("Enter student number: ")
                 print(students.show_search(student_number))
@@ -48,6 +52,7 @@ def admin_li():
                 continue
 
             elif ch == '4':
+                os.system('cls')
                 add_std = Student()
                 student_number = input("Enter student number: ")
                 fname = input("Enter student first name: ")
@@ -61,10 +66,41 @@ def admin_li():
                     print(red + "this student number is already exists!!" + endc)
                 input("\npress any key to back:")
                 continue
+
+            elif ch == '5':
+                os.system('cls')
+                chek_edit = Student()
+                student_number = input("Enter student number to edit: ")
+                print(chek_edit.show_a_student(student_number))
+                if chek_edit.chek_edit(student_number):
+                    new_student_number = input("Enter new student number: ")
+                    new_fname = input("Enter student first name: ")
+                    new_lname = input("Enter student last name: ")
+                    new_avg = input("Enter student average: ")
+                    edit = Student()
+                    edit.edit(student_number, new_student_number, new_fname, new_lname, new_avg)
+                    print(green + "you edited student successfully." + endc)
+                    input("\npress any key to back:")
+                input("\npress any key to back:")
+
+            elif ch == '6':
+                os.system('cls')
+                remove_std = Student()
+                student_number = input("Enter student number to remove: ")
+                print(remove_std.show_a_student(student_number))
+                x = input(red + "are you sure you want to delete(y|n)? " + endc)
+                if x == 'y':
+                    remove = Student()
+                    remove.remove(student_number)
+                    print("Student deleted!")
+                    input("\npress any key to back:")
+                elif x == 'n':
+                    continue
+
             elif ch == '7':
                 continue
 
-            else :
+            else:
                 print("You entered a wrong number. Please try again.")
                 continue
 
@@ -84,13 +120,16 @@ def admin_li():
              os.system('cls')
              sys.exit(0)
            if a == 'n':
-             continue
+              continue
+
 
 def manager_li():
     pass
 
+
 def teacher_li():
     pass
+
 
 def student_li():
     pass
@@ -116,18 +155,19 @@ if __name__ == "__main__":
 
         if flag == 0:
             os.system('cls')
-            print(red, "\nEror:Username or Password do not match!!")
+            print(red, "\nError:Username or Password do not match!!")
             print(endc)
 
         elif flag == 1:
             admin_li()
 
         elif flag == 2:
-           os.system('cls')
-           print(green, "Logged as in 'course manager' ")
-           print(endc)
-           manager_li()
-           break
+            os.system('cls')
+            print(green, "Logged as in 'course manager' ")
+            print(endc)
+            manager_li()
+            break
+
         elif flag == 3:
             os.system('cls')
             print(green, "Logged as in 'student' ")

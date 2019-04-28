@@ -1,5 +1,3 @@
-123123, amir, mohammadi, 15.6
-9721973115, arian, heydari, 13
-9721973116, mahdi, darvish, 18
-9721973125, sadra, saderi, 18
-9722473104, amir reza, amanzadeh, 13
+9721973139, amir, mohammadi, 15.6
+9721973116, mahdi, darvish, 19
+9721973115, arian, heydari, 16

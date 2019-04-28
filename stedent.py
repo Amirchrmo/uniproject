@@ -72,7 +72,7 @@ class Student():
         if las == False:
             return '\033[31m' + "Not found!!" + '\033[0m'
         else:
-            return ("{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
+            return ("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
                                      las['fname'], las['lname'], las['avarage']))
 
     def show_search(self, student_number):
@@ -92,3 +92,49 @@ class Student():
             return True
         else:
             return False
+
+    def chek_edit(self, student_number):
+        las = Student.list_std(self)
+        for i, x in enumerate(las):
+            if las[i]['studentID'] == student_number:
+                return True
+        return False
+
+    def edit(self, student_number, new_student_num, new_fname, new_lname, new_avg):
+        las = Student.list_std(self)
+        for i, x in enumerate(las):
+            if las[i]['studentID'] == student_number:
+                las[i]['studentID'] = new_student_num
+                las[i]['fname'] = new_fname
+                las[i]['lname'] = new_lname
+                las[i]['avg'] = new_avg
+        with open("students.txt", 'w') as f:
+            with open("students.txt", 'a') as f:
+                for i, item in enumerate(las):
+                    f.write(las[i]['studentID'])
+                    f.write(", ")
+                    f.write(las[i]['fname'])
+                    f.write(", ")
+                    f.write(las[i]['lname'])
+                    f.write(", ")
+                    f.write(las[i]['avarage'])
+                    f.write("\n")
+
+    def remove(self, student_number):
+        las = Student.list_std(self)
+        for i, x in enumerate(las):
+            if las[i]['studentID'] == student_number:
+                las.pop(i)
+        with open("students.txt", 'w') as f:
+            with open("students.txt", 'a') as f:
+                for i, item in enumerate(las):
+                    f.write(las[i]['studentID'])
+                    f.write(", ")
+                    f.write(las[i]['fname'])
+                    f.write(", ")
+                    f.write(las[i]['lname'])
+                    f.write(", ")
+                    f.write(las[i]['avarage'])
+                    f.write("\n")
+
+
