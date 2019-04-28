@@ -4,12 +4,13 @@ class Student():
         with open("users.txt", "r") as usersfile:
             users_file = usersfile.readlines()
             for users in users_file:
-                users = users.split(",")
-                users_information = {
-                    "username": users[0].strip(),
-                    "password": users[1].strip(),
-                    "code": users[2].strip()}
-                users_list.append(users_information)
+                if(users != '\n'):
+                    users = users.split(",")
+                    users_information = {
+                        "username": users[0].strip(),
+                        "password": users[1].strip(),
+                        "code": users[2].strip()}
+                    users_list.append(users_information)
             for item in users_list:
                 if item['username'] == username and item['password'] == password:
                    return item['code']
@@ -60,4 +61,3 @@ class Student():
         cnt = 0
         return ("{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
                                      las['fname'], las['lname'], las['avarage']))
-

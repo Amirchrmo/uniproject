@@ -3,6 +3,9 @@ from course import Course
 import os
 import sys
 
+use = ''
+password = ''
+
 def admin_li():
     while 1:
         os.system('cls')
@@ -11,8 +14,9 @@ def admin_li():
         print("--Main Menu")
         print("  |- 1) Student Management ")
         print("  |- 2) Course Management ")
-        print("  |- 3) Exit ")
-        choose = input("\nchoose(1_3):")
+        print("  |- 3) Change Username ")
+        print("  |- 4) Exit ")
+        choose = input("\nchoose(1_4):")
 
         if choose == '1':
             os.system('cls')
@@ -70,7 +74,7 @@ def admin_li():
                 print("You entered a wrong number. Please try again.")
                 continue
 
-        if choose == '2':
+        elif choose == '2':
             os.system('cls')
             print("--Course Management Menu")
             print("  |- 1) List all Course")
@@ -111,13 +115,36 @@ def admin_li():
             else :
                 print("You entered a wrong number. Please try again.")
                 continue
-        if choose == '3':
+        elif choose == '3':
+            users = []
+            with open("users.txt") as File:
+                users = File.readlines()
+
+            for inum, item in enumerate(users):
+                i = (item.split(","))
+                if(use == i[0].strip()):
+                    pass4ch = input("Please Enter your password :")
+                    if(i[1].strip() == pass4ch):
+                        newUsername = input("Please enter your new Username:")
+                        newPassword = input("Please enter your new Password:")
+
+                        users[inum] = "{}, {}, {}".format(newUsername, newPassword, i[2].strip())
+                        with open("users.txt", "w") as File:
+                            for item in users:
+                                File.write(item + "\n")
+                else:
+                    continue
+
+        elif choose == '4':
            a = input(red + "are you sure(y/n)?" + endc)
            if a == 'y':
              os.system('cls')
              sys.exit(0)
            if a == 'n':
              continue
+        else:
+            print("Error please try again !")
+            continue
 
 def manager_li():
     pass
