@@ -72,7 +72,15 @@ class Student():
         las = Student.browse(self, student_number)
         cnt = 0
         return ("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
-                                     las['fname'], las['lname'], las['avarage']))
+                                                 las['fname'], las['lname'], las['avarage']))
+# =======
+#         if las == False:
+#             print('\033[31m' + "Not found!!" + '\033[0m')
+#             return 1
+#         else:
+#             print("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
+# >>>>>>> Stashed changes
+
 
     def show_search(self, student_number):
         las = Student.search(self, student_number)
