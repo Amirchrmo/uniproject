@@ -32,6 +32,7 @@ def admin_li():
             ch = input("\nchoose(1_7):")
 
             if ch == '1':
+                os.system('cls')
                 students = Student()
                 print("student number, fname, lname, avg\n")
                 print(students.show_all_students())
@@ -40,6 +41,7 @@ def admin_li():
                 continue
 
             elif ch == '2':
+                os.system('cls')
                 students = Student()
                 courses = Course()
                 student_number = input("Enter student number: ")
@@ -60,17 +62,109 @@ def admin_li():
                 continue
 
             elif ch == '3':
+                os.system('cls')
                 students = Student()
                 student_number = input("Enter student number: ")
-                print(students.search(student_number))
+                print(students.show_search(student_number))
                 input("\npress any key to back:")
                 choose = 0
                 continue
 
+            elif ch == '4':
+                os.system('cls')
+                add_std = Student()
+                student_number = input("Enter student number: ")
+                if not add_std.browse(student_number):
+                    fname = input("Enter student first name: ")
+                    lname = input("Enter student last name: ")
+                    avg = input("Enter student average: ")
+                    add_std.add(student_number, fname, lname, avg)
+                    print(green + "you added a student successfully." + endc)
+                else:
+                    print(red + "this student number is already exists!!" + endc)
+                input("\npress any key to back:")
+                continue
+
+            elif ch == '5':
+                os.system('cls')
+                chek_edit = Student()
+                student_number = input("Enter student number to edit: ")
+                print(chek_edit.show_a_student(student_number))
+                if chek_edit.chek_edit(student_number):
+                    new_student_number = input("Enter new student number: ")
+                    new_fname = input("Enter student first name: ")
+                    new_lname = input("Enter student last name: ")
+                    new_avg = input("Enter student average: ")
+                    edit = Student()
+                    edit.edit(student_number, new_student_number, new_fname, new_lname, new_avg)
+                    print(green + "you edited student successfully." + endc)
+                    input("\npress any key to back:")
+                input("\npress any key to back:")
+
+            elif ch == '6':
+                os.system('cls')
+                remove_std = Student()
+                student_number = input("Enter student number to remove: ")
+                print(remove_std.show_a_student(student_number))
+                x = input(red + "are you sure you want to delete(y|n)? " + endc)
+                if x == 'y':
+                    remove = Student()
+                    remove.remove(student_number)
+                    print("Student deleted!")
+                    input("\npress any key to back:")
+                elif x == 'n':
+                    continue
+
+                    add_std = Student()
+                student_number = input("Enter student number: ")
+                fname = input("Enter student first name: ")
+                lname = input("Enter student last name: ")
+                avg = input("Enter student average: ")
+
+                if add_std.add(student_number, fname, lname, avg):
+                    print( green + "you added a student successfully." + endc)
+
+                else:
+                    print(red + "this student number is already exists!!" + endc)
+                input("\npress any key to back:")
+                continue
+
+            elif ch == '5':
+                os.system('cls')
+                chek_edit = Student()
+                student_number = input("Enter student number to edit: ")
+                print(chek_edit.show_a_student(student_number))
+                if chek_edit.chek_edit(student_number):
+                    new_student_number = input("Enter new student number: ")
+                    new_fname = input("Enter student first name: ")
+                    new_lname = input("Enter student last name: ")
+                    new_avg = input("Enter student average: ")
+                    edit = Student()
+                    edit.edit(student_number, new_student_number, new_fname, new_lname, new_avg)
+                    print(green + "you edited student successfully." + endc)
+                    input("\npress any key to back:")
+                input("\npress any key to back:")
+
+            elif ch == '6':
+                os.system('cls')
+                remove_std = Student()
+                student_number = input("Enter student number to remove: ")
+                print(remove_std.show_a_student(student_number))
+                x = input(red + "are you sure you want to delete(y|n)? " + endc)
+                if x == 'y':
+                    remove = Student()
+                    remove.remove(student_number)
+                    print("Student deleted!")
+                    input("\npress any key to back:")
+                elif x == 'n':
+                    continue
+
             elif ch == '7':
+                os.system('cls')
                 continue
 
             else :
+                os.system('cls')
                 print("You entered a wrong number. Please try again.")
                 continue
 
@@ -86,6 +180,7 @@ def admin_li():
             ch = input("\nchoose(1_6):")
 
             if ch == '1':
+                os.system('cls')
                 students = Course()
                 # print("student number, fname, lname, avg\n")
                 print(students.show_all_courses())
@@ -94,6 +189,7 @@ def admin_li():
                 continue
 
             elif ch == '2':
+                os.system('cls')
                 students = Course()
                 student_number = input("Enter course number: ")
                 print(students.show_a_course(student_number))
@@ -102,6 +198,7 @@ def admin_li():
                 continue
 
             elif ch == '3':
+                os.system('cls')
                 students = Course()
                 cnumber = input("Enter course number: ")
                 print(students.search(cnumber))
@@ -110,9 +207,11 @@ def admin_li():
                 continue
 
             elif ch == '7':
+                os.system('cls')
                 continue
 
             else :
+                os.system('cls')
                 print("You entered a wrong number. Please try again.")
                 continue
         elif choose == '3':

@@ -71,8 +71,19 @@ class Student():
     def show_a_student(self, student_number):
         las = Student.browse(self, student_number)
         cnt = 0
-        return ("{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
+        return ("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
                                      las['fname'], las['lname'], las['avarage']))
+
+    def show_search(self, student_number):
+        las = Student.search(self, student_number)
+        cnt = 0
+        result = '\033[1;32;40m' + "---Found ({}) result \n\n\t".format(len(las)) + '\033[0m'
+        for i, item in enumerate(las):
+            result += "{}) {}: {} {}, {}\n\t".format(cnt+1, item['studentID'],
+                                              item['fname'], item['lname'], item['avarage'])
+            cnt += 1
+        return result
+
 
     def add(self, student_numer, fname, lname, avg):
         if Student.browse(self, student_numer) == False:
@@ -81,3 +92,33 @@ class Student():
             return True
         else:
             return False
+
+    def chek_edit(self, student_number):
+        las = Student.list_std(self)
+        for i, x in enumerate(las):
+            if las[i]['studentID'] == student_number:
+                return True
+        return False
+
+    def edit(self, student_number, new_student_num, new_fname, new_lname, new_avg):
+        las = Student.list_std(self)
+        for i, x in enumerate(las):
+            if las[i]['studentID'] == student_number:
+                las[i]['studentID'] = new_student_num
+                las[i]['fname'] = new_fname
+                las[i]['lname'] = new_lname
+                las[i]['avg'] = new_avg
+        with open("students.txt", 'w') as f:
+            with open("students.txt", 'a') as f:
+                for i, item in enumerate(las):
+                    f.write(las[i]['studentID']+", "+las[i]['fname']+", "+las[i]['lname']+", "+las[i]['avarage']+"\n")
+
+    def remove(self, student_number):
+        las = Student.list_std(self)
+        for i, x in enumerate(las):
+            if las[i]['studentID'] == student_number:
+                las.pop(i)
+        with open("students.txt", 'w') as f:
+            with open("students.txt", 'a') as f:
+                for i, item in enumerate(las):
+                    f.write(las[i]['studentID']+", "+las[i]['fname']+", "+las[i]['lname']+", "+las[i]['avarage']+"\n")
