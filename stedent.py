@@ -4,12 +4,13 @@ class Student():
         with open("users.txt", "r") as usersfile:
             users_file = usersfile.readlines()
             for users in users_file:
-                users = users.split(",")
-                users_information = {
-                    "username": users[0].strip(),
-                    "password": users[1].strip(),
-                    "code": users[2].strip()}
-                users_list.append(users_information)
+                if(users != '\n'):
+                    users = users.split(",")
+                    users_information = {
+                        "username": users[0].strip(),
+                        "password": users[1].strip(),
+                        "code": users[2].strip()}
+                    users_list.append(users_information)
             for item in users_list:
                 if item['username'] == username and item['password'] == password:
                    return item['code']
@@ -35,7 +36,8 @@ class Student():
         for i, item in enumerate(student_list):
             if item['studentID'] == student_number:
                 return student_list[i]
-        return False
+            else:
+                return False
     #         student curses
 
     def search(self, student_number):
@@ -69,10 +71,7 @@ class Student():
     def show_a_student(self, student_number):
         las = Student.browse(self, student_number)
         cnt = 0
-        if las == False:
-            return '\033[31m' + "Not found!!" + '\033[0m'
-        else:
-            return ("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
+        return ("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
                                      las['fname'], las['lname'], las['avarage']))
 
     def show_search(self, student_number):
@@ -84,6 +83,7 @@ class Student():
                                               item['fname'], item['lname'], item['avarage'])
             cnt += 1
         return result
+
 
     def add(self, student_numer, fname, lname, avg):
         if Student.browse(self, student_numer) == False:
@@ -111,14 +111,7 @@ class Student():
         with open("students.txt", 'w') as f:
             with open("students.txt", 'a') as f:
                 for i, item in enumerate(las):
-                    f.write(las[i]['studentID'])
-                    f.write(", ")
-                    f.write(las[i]['fname'])
-                    f.write(", ")
-                    f.write(las[i]['lname'])
-                    f.write(", ")
-                    f.write(las[i]['avarage'])
-                    f.write("\n")
+                    f.write(las[i]['studentID']+", "+las[i]['fname']+", "+las[i]['lname']+", "+las[i]['avarage']+"\n")
 
     def remove(self, student_number):
         las = Student.list_std(self)
@@ -128,13 +121,4 @@ class Student():
         with open("students.txt", 'w') as f:
             with open("students.txt", 'a') as f:
                 for i, item in enumerate(las):
-                    f.write(las[i]['studentID'])
-                    f.write(", ")
-                    f.write(las[i]['fname'])
-                    f.write(", ")
-                    f.write(las[i]['lname'])
-                    f.write(", ")
-                    f.write(las[i]['avarage'])
-                    f.write("\n")
-
-
+                    f.write(las[i]['studentID']+", "+las[i]['fname']+", "+las[i]['lname']+", "+las[i]['avarage']+"\n")

@@ -1,0 +1,3 @@
+SE971, Software Engineering, Test Testzadeh
+DB971, Database, That Man Over there
+DB972, Database for Other People, Someone I Don't Know
