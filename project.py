@@ -20,7 +20,7 @@ def admin_li():
         print("--Main Menu")
         print("  |- 1) Student Management ")
         print("  |- 2) Course Management ")
-        print("  |- 3) Change Username ")
+        print("  |- 3) Change Username/password ")
         print("  |- 4) Log-out ")
         print("  |- 5) Exit ")
         choose = input("\nchoose(1_5):")
@@ -135,7 +135,7 @@ def admin_li():
                 os.system('cls')
                 continue
 
-            else :
+            else:
                 os.system('cls')
                 print("You entered a wrong number. Please try again.")
                 continue
@@ -223,12 +223,13 @@ def admin_li():
                 os.system('cls')
                 continue
 
-            else :
+            else:
                 os.system('cls')
                 print("You entered a wrong number. Please try again.")
                 continue
         elif choose == '3':
             users = []
+            global use
             with open("users.txt") as File:
                 users = File.readlines()
             for inum, item in enumerate(users):
@@ -238,11 +239,14 @@ def admin_li():
                     if(i[1].strip() == pass4ch):
                         newUsername = input("Please enter your new Username:")
                         newPassword = input("Please enter your new Password:")
-
                         users[inum] = "{}, {}, {}".format(newUsername, newPassword, i[2].strip())
                         with open("users.txt", "w") as File:
                             for item in users:
                                 File.write(item + "\n")
+                    print(green + "you changed your username/password successfully" + endc)
+                    input("\npress any key to back:")
+
+
                 else:
                     continue
 
@@ -258,7 +262,8 @@ def admin_li():
            if a == 'n':
              continue
         else:
-            print("Error please try again !")
+            print(red + "Error please try again!!" + endc)
+            input("\npress any key to back:")
             continue
 
 def manager_li():
@@ -268,7 +273,78 @@ def teacher_li():
     pass
 
 def student_li():
-    pass
+    while 1:
+        os.system('cls')
+        print(green, "Logged as in 'student' ")
+        print(endc)
+        print("--Main Menu")
+        print("  |- 1) List all Course ")
+        print("  |- 2) Browse a Course ")
+        print("  |- 3) Search Course")
+        print("  |- 4) Unit selection ")
+        print("  |- 5) Change password ")
+        print("  |- 6) Log-out ")
+        print("  |- 7) Exit ")
+        ch = input("\nchoose(1_7):")
+        if ch == '1':
+            os.system('cls')
+            students = Course()
+            print(students.show_all_courses())
+            input("\npress any key to back:")
+            continue
+
+        elif ch == '2':
+            os.system('cls')
+            students = Course()
+            student_number = input("Enter course number: ")
+            print(students.show_a_course(student_number))
+            input("\npress any key to back:")
+            continue
+
+        elif ch == '3':
+            os.system('cls')
+            students = Course()
+            cnumber = input("Enter course number: ")
+            print(students.show_search(cnumber))
+            input("\npress any key to back:")
+            continue
+
+        elif ch == '4':
+            pass
+        elif ch == '5':
+            users = []
+            global use
+            with open("users.txt") as File:
+                users = File.readlines()
+            for inum, item in enumerate(users):
+                i = (item.split(","))
+                if use == i[0].strip():
+                    pass4ch = input("Please Enter your password :")
+                    if i[1].strip() == pass4ch:
+                        newPassword = input("Please enter your new Password:")
+                        users[inum] = "{}, {}, {}".format(i[0].strip(), newPassword, i[2].strip())
+                        with open("users.txt", "w") as File:
+                            for item in users:
+                                File.write(item + "\n")
+                    print(green + "you changed your password successfully" + endc)
+                    input("\npress any key to back:")
+
+        elif ch == '6':
+            os.system('cls')
+            main()
+            return
+        elif ch == '7':
+            a = input(red + "are you sure(y/n)?" + endc)
+            if a == 'y':
+                os.system('cls')
+                sys.exit(0)
+            if a == 'n':
+                continue
+        else:
+            print(red + "Error please try again!!" + endc)
+            input("\npress any key to back:")
+
+            continue
 
 
 def main():
@@ -277,6 +353,8 @@ def main():
     print("---Login\n")
 
     while 1:
+        global use
+        global password
         use = input("\tEnter your username:")
         password = input("\tEnter your password:")
         # use = 'admin'
@@ -300,9 +378,6 @@ def main():
            manager_li()
            break
         elif flag == 3:
-            os.system('cls')
-            print(green, "Logged as in 'student' ")
-            print(endc)
             student_li()
             break
         elif flag == 4:
@@ -311,7 +386,7 @@ def main():
             print(endc)
             teacher_li()
             break
-        else :
+        else:
             print("Error! Flag is not correct.")
             continue
 
