@@ -6,6 +6,12 @@ import sys
 use = ''
 password = ''
 
+endc = '\033[0m'
+green = '\033[1;32;40m'
+red = '\033[31m'
+
+bMain = False
+
 def admin_li():
     while 1:
         os.system('cls')
@@ -15,8 +21,9 @@ def admin_li():
         print("  |- 1) Student Management ")
         print("  |- 2) Course Management ")
         print("  |- 3) Change Username ")
-        print("  |- 4) Exit ")
-        choose = input("\nchoose(1_4):")
+        print("  |- 4) Log-out ")
+        print("  |- 5) Exit ")
+        choose = input("\nchoose(1_5):")
 
         if choose == '1':
             os.system('cls')
@@ -37,7 +44,6 @@ def admin_li():
                 print("student number, fname, lname, avg\n")
                 print(students.show_all_students())
                 input("\npress any key to back:")
-                choose = 0
                 continue
 
             elif ch == '2':
@@ -56,9 +62,7 @@ def admin_li():
                         showc = (courses.show_a_course(i[1].strip())).strip()
                         print("\t" + showc[2:])
 
-
                 input("\npress any key to back:")
-                choose = 0
                 continue
 
             elif ch == '3':
@@ -67,7 +71,6 @@ def admin_li():
                 student_number = input("Enter student number: ")
                 print(students.show_search(student_number))
                 input("\npress any key to back:")
-                choose = 0
                 continue
 
             elif ch == '4':
@@ -98,7 +101,6 @@ def admin_li():
                     edit = Student()
                     edit.edit(student_number, new_student_number, new_fname, new_lname, new_avg)
                     print(green + "you edited student successfully." + endc)
-                    input("\npress any key to back:")
                 input("\npress any key to back:")
 
             elif ch == '6':
@@ -115,49 +117,19 @@ def admin_li():
                 elif x == 'n':
                     continue
 
-                    add_std = Student()
-                student_number = input("Enter student number: ")
-                fname = input("Enter student first name: ")
-                lname = input("Enter student last name: ")
-                avg = input("Enter student average: ")
-
-                if add_std.add(student_number, fname, lname, avg):
-                    print( green + "you added a student successfully." + endc)
-
-                else:
-                    print(red + "this student number is already exists!!" + endc)
-                input("\npress any key to back:")
-                continue
-
-            elif ch == '5':
-                os.system('cls')
-                chek_edit = Student()
-                student_number = input("Enter student number to edit: ")
-                print(chek_edit.show_a_student(student_number))
-                if chek_edit.chek_edit(student_number):
-                    new_student_number = input("Enter new student number: ")
-                    new_fname = input("Enter student first name: ")
-                    new_lname = input("Enter student last name: ")
-                    new_avg = input("Enter student average: ")
-                    edit = Student()
-                    edit.edit(student_number, new_student_number, new_fname, new_lname, new_avg)
-                    print(green + "you edited student successfully." + endc)
-                    input("\npress any key to back:")
-                input("\npress any key to back:")
-
-            elif ch == '6':
-                os.system('cls')
-                remove_std = Student()
-                student_number = input("Enter student number to remove: ")
-                print(remove_std.show_a_student(student_number))
-                x = input(red + "are you sure you want to delete(y|n)? " + endc)
-                if x == 'y':
-                    remove = Student()
-                    remove.remove(student_number)
-                    print("Student deleted!")
-                    input("\npress any key to back:")
-                elif x == 'n':
-                    continue
+                # add_std = Student()
+                # student_number = input("Enter student number: ")
+                # fname = input("Enter student first name: ")
+                # lname = input("Enter student last name: ")
+                # avg = input("Enter student average: ")
+                #
+                # if add_std.add(student_number, fname, lname, avg):
+                #     print( green + "you added a student successfully." + endc)
+                #
+                # else:
+                #     print(red + "this student number is already exists!!" + endc)
+                # input("\npress any key to back:")
+                # continue
 
             elif ch == '7':
                 os.system('cls')
@@ -177,7 +149,9 @@ def admin_li():
             print("  |- 4) Add a Course")
             print("  |- 5) Edit a Course ")
             print("  |- 6) Remove a Course ")
-            ch = input("\nchoose(1_6):")
+            print("  |- 7) Back ")
+
+            ch = input("\nchoose(1_7):")
 
             if ch == '1':
                 os.system('cls')
@@ -185,7 +159,6 @@ def admin_li():
                 # print("student number, fname, lname, avg\n")
                 print(students.show_all_courses())
                 input("\npress any key to back:")
-                choose = 0
                 continue
 
             elif ch == '2':
@@ -194,17 +167,57 @@ def admin_li():
                 student_number = input("Enter course number: ")
                 print(students.show_a_course(student_number))
                 input("\npress any key to back:")
-                choose = 0
                 continue
 
             elif ch == '3':
                 os.system('cls')
                 students = Course()
                 cnumber = input("Enter course number: ")
-                print(students.search(cnumber))
+                print(students.show_search(cnumber))
                 input("\npress any key to back:")
-                choose = 0
                 continue
+
+            elif ch == '4':
+                os.system('cls')
+                add_std = Course()
+                course_number = input("Enter course number: ")
+                if not add_std.cbrowse(course_number):
+                    cname = input("Enter course name: ")
+                    tname = input("Enter teacher name: ")
+                    add_std.add(course_number, cname, tname)
+                    print(green + "you added a course successfully." + endc)
+                else:
+                    print(red + "this course number is already exists!!" + endc)
+                input("\npress any key to back:")
+                continue
+
+            elif ch == '5':
+                os.system('cls')
+                chek_edit = Course()
+                course_number = input("Enter course number to edit: ")
+                print(chek_edit.show_a_course(course_number))
+                if chek_edit.chek_edit(course_number):
+                    new_course_number = input("Enter new course number: ")
+                    new_cname = input("Enter course name: ")
+                    new_tname = input("Enter teacher name: ")
+                    edit = Course()
+                    edit.edit(course_number, new_course_number, new_cname, new_tname)
+                    print(green + "you edited course successfully." + endc)
+                input("\npress any key to back:")
+
+            elif ch == '6':
+                os.system('cls')
+                remove_std = Course()
+                course_number = input("Enter course number to remove: ")
+                print(remove_std.show_a_course(course_number))
+                x = input(red + "are you sure you want to delete(y|n)? " + endc)
+                if x == 'y':
+                    remove = Course()
+                    remove.remove(course_number)
+                    print("Course deleted!")
+                    input("\npress any key to back:")
+                elif x == 'n':
+                    continue
 
             elif ch == '7':
                 os.system('cls')
@@ -218,7 +231,6 @@ def admin_li():
             users = []
             with open("users.txt") as File:
                 users = File.readlines()
-
             for inum, item in enumerate(users):
                 i = (item.split(","))
                 if(use == i[0].strip()):
@@ -235,6 +247,10 @@ def admin_li():
                     continue
 
         elif choose == '4':
+            os.system('cls')
+            main()
+            return
+        elif choose == '5':
            a = input(red + "are you sure(y/n)?" + endc)
            if a == 'y':
              os.system('cls')
@@ -255,14 +271,10 @@ def student_li():
     pass
 
 
-if __name__ == "__main__":
-
+def main():
     os.system('cls')
     print("================== Welcome ==================\n")
     print("---Login\n")
-    endc = '\033[0m'
-    green = '\033[1;32;40m'
-    red = '\033[31m'
 
     while 1:
         use = input("\tEnter your username:")
@@ -275,7 +287,7 @@ if __name__ == "__main__":
 
         if flag == 0:
             os.system('cls')
-            print(red, "\nEror:Username or Password do not match!!")
+            print(red, "\nError:Username or Password do not match!!")
             print(endc)
 
         elif flag == 1:
@@ -302,3 +314,7 @@ if __name__ == "__main__":
         else :
             print("Error! Flag is not correct.")
             continue
+
+if (bMain == False):
+    bMain = True
+    main()

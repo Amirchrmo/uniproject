@@ -36,8 +36,7 @@ class Student():
         for i, item in enumerate(student_list):
             if item['studentID'] == student_number:
                 return student_list[i]
-            else:
-                return False
+        return False
     #         student curses
 
     def search(self, student_number):
@@ -71,8 +70,7 @@ class Student():
     def show_a_student(self, student_number):
         las = Student.browse(self, student_number)
         cnt = 0
-        return ("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
-                                                 las['fname'], las['lname'], las['avarage']))
+        return ("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],las['fname'], las['lname'], las['avarage']))
 # =======
 #         if las == False:
 #             print('\033[31m' + "Not found!!" + '\033[0m')
@@ -80,7 +78,6 @@ class Student():
 #         else:
 #             print("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
 # >>>>>>> Stashed changes
-
 
     def show_search(self, student_number):
         las = Student.search(self, student_number)
@@ -91,7 +88,6 @@ class Student():
                                               item['fname'], item['lname'], item['avarage'])
             cnt += 1
         return result
-
 
     def add(self, student_numer, fname, lname, avg):
         if Student.browse(self, student_numer) == False:
@@ -115,7 +111,7 @@ class Student():
                 las[i]['studentID'] = new_student_num
                 las[i]['fname'] = new_fname
                 las[i]['lname'] = new_lname
-                las[i]['avg'] = new_avg
+                las[i]['avarage'] = new_avg
         with open("students.txt", 'w') as f:
             with open("students.txt", 'a') as f:
                 for i, item in enumerate(las):

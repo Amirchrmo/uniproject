@@ -23,12 +23,23 @@ class Course():
         return False
     #         student curses
 
-    # def search(self, student_number):
-    #     student_list = Student.list_std(self)
-    #     for i, item in enumerate(student_list):
-    #         if item['studentID'].__contains__(student_number):
-    #             student_list = student_list[i]
-    #     return student_list
+    def search(self, course_number):
+        findstd = []
+        course_list = Course.list_cs(self)
+
+        with open("courses.txt", "r") as coursesfile:
+            course_file = coursesfile.readlines()
+
+        b = False
+
+        for i, item in enumerate(course_file):
+            if item.__contains__(course_number):
+                findstd.append(course_list[i])
+                b = True
+        if (b):
+            return findstd
+        else:
+            return ('\033[31m' + "Not found!!" + '\033[0m')
 
     def show_all_courses(self):
         las = Course.list_cs(self)
@@ -49,6 +60,49 @@ class Course():
             return ("{}) {}: {} - {}\n\t".format(cnt+1, las['courseID'],
                                               las['cname'], las['tname']))
 
+    def show_search(self, course_number):
+        las = Course.search(self, course_number)
+        cnt = 0
+        result = '\033[1;32;40m' + "---Found ({}) result \n\n\t".format(len(las)) + '\033[0m'
+        for i, item in enumerate(las):
+            result += "{}) {}: {} - {}\n\t".format(cnt+1, item['courseID'], item['cname'], item['tname'])
+            cnt += 1
+        return result
 
-    def add(self, cnumer, cname, tname):
-         pass
+    def add(self, course_number, cname, tname):
+
+        if Course.cbrowse(self, course_number) == False:
+            with open("courses.txt", "a") as file:
+                file.write("{}, {}, {}\n".format(course_number, cname, tname))
+            return True
+        else:
+            return False
+
+    def chek_edit(self, course_number):
+        las = Course.list_cs(self)
+        for i, x in enumerate(las):
+            if las[i]['courseID'] == course_number:
+                return True
+        return False
+
+    def edit(self, course_number, new_course_num, new_name, new_teacher):
+        las = Course.list_cs(self)
+        for i, x in enumerate(las):
+            if las[i]['courseID'] == course_number:
+                las[i]['courseID'] = new_course_num
+                las[i]['cname'] = new_name
+                las[i]['tname'] = new_teacher
+        with open("courses.txt", 'w') as f:
+            with open("courses.txt", 'a') as f:
+                for i, item in enumerate(las):
+                    f.write(las[i]['courseID'] + ", " + las[i]['cname'] + ", " + las[i]['tname'] + "\n")
+
+    def remove(self, course_number):
+        las = Course.list_cs(self)
+        for i, x in enumerate(las):
+            if las[i]['courseID'] == course_number:
+                las.pop(i)
+        with open("courses.txt", 'w') as f:
+            with open("courses.txt", 'a') as f:
+                for i, item in enumerate(las):
+                    f.write(las[i]['courseID'] + ", " + las[i]['cname'] + ", " + las[i]['tname'] + "\n")
