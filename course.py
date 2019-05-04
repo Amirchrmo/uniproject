@@ -106,3 +106,48 @@ class Course():
             with open("courses.txt", 'a') as f:
                 for i, item in enumerate(las):
                     f.write(las[i]['courseID'] + ", " + las[i]['cname'] + ", " + las[i]['tname'] + "\n")
+
+    def UnitSelection(self, studentID, courseID, command): #TODO: FIX THIS !
+
+        # 0 for add
+        # 1 for remove
+
+        sac = []
+
+        with open("student_courses.txt") as file:
+            sac = file.readlines()
+            print(sac)
+
+        if(command == 0):
+            for item in sac:
+                i = item.split(",")
+                if (str(i[0]).strip() == str(studentID)).strip() and (str(i[1]).strip() == str(courseID)).strip():
+                    return False
+            with open("student_courses.txt", "a") as file:
+                file.write("{},{}".format(studentID, courseID))
+            return True
+
+        elif(command == 1):
+            for index, item in enumerate(sac):
+                i = item.split(",")
+                if (str(i[0]).strip() == str(studentID).strip()) and (str(i[1]).strip() == str(courseID).strip()):
+                    sac.pop(index)
+
+                    with open("student_courses.txt", 'w') as f:
+                        with open("student_courses.txt", 'a') as f:
+                            for ii in sac:
+                                f.write(ii)
+                    return True
+            return False
+
+
+            # for item in sac:
+            #     i = item.split(",")
+            #     if (i[0] == studentID) and (i[1] == courseID):
+            #         for index, item in enumerate(sac):
+            #             i = item.split(",")
+            #             if (i[0] == studentID) and (i[1] == courseID):
+            #
+            #                             with open("student_courses.txt", 'a') as file:
+            #                                 file.write("{},{}".format(studentID, courseID))
+            #                                 return False

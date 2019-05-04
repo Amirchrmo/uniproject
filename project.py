@@ -149,9 +149,10 @@ def admin_li():
             print("  |- 4) Add a Course")
             print("  |- 5) Edit a Course ")
             print("  |- 6) Remove a Course ")
-            print("  |- 7) Back ")
+            print("  |- 7) Unit selection for students ")
+            print("  |- 8) Back ")
 
-            ch = input("\nchoose(1_7):")
+            ch = input("\nchoose(1_8):")
 
             if ch == '1':
                 os.system('cls')
@@ -220,6 +221,49 @@ def admin_li():
                     continue
 
             elif ch == '7':
+                os.system('cls')
+                students = Student()
+                courses = Course()
+                student_number = input("Enter student number: ")
+
+                print("Student:")
+                # print(students.show_a_student(student_number))
+
+                with open("student_courses.txt") as file:
+                    sac = file.readlines()
+
+                for item in sac:
+                    i = item.split(",")
+                    if (i[0] == student_number):
+                        showc = (courses.show_a_course(i[1].strip())).strip()
+                        print("\t" + showc[2:])
+
+                print(courses.show_all_courses())
+
+                caid = input("Please enter the course number you want to add/remove (example : add 1234 or remove 1234):")
+                clist = caid.split(" ")
+
+                if(clist[0] == "add"):
+                    clist[0] = 0
+                elif(clist[0] == "remove"):
+                    clist[0] = 1
+                else:
+                    continue
+
+                a = courses.UnitSelection(student_number, clist[1].strip(), clist[0])
+
+                if(a) and (clist[0] == 1):
+                    print("Course removed successfully")
+                elif(a) and (clist[0] == 0):
+                    print("Course added successfully")
+                else:
+                    print(str(a))
+                    print("Error!!!")
+
+                input("\npress any key to back:")
+                continue
+
+            elif ch == '8':
                 os.system('cls')
                 continue
 
