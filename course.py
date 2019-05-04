@@ -142,13 +142,3 @@ class Course(object):
             return False
 
 
-            # for item in sac:
-            #     i = item.split(",")
-            #     if (i[0] == studentID) and (i[1] == courseID):
-            #         for index, item in enumerate(sac):
-            #             i = item.split(",")
-            #             if (i[0] == studentID) and (i[1] == courseID):
-            #
-            #                             with open("student_courses.txt", 'a') as file:
-            #                                 file.write("{},{}".format(studentID, courseID))
-            #                                 return False
