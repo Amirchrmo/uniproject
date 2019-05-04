@@ -230,7 +230,7 @@ def admin_li():
                 student_number = input("Enter student number: ")
 
                 print("Student:")
-                # print(students.show_a_student(student_number))
+                print(students.show_a_student(student_number))
 
                 with open("student_courses.txt") as file:
                     sac = file.readlines()
