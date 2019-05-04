@@ -9,6 +9,7 @@ password = ''
 endc = '\033[0m'
 green = '\033[1;32;40m'
 red = '\033[31m'
+orange = "\033[33m"
 
 bMain = False
 
@@ -58,7 +59,7 @@ def admin_li():
 
                 for item in sac:
                     i = item.split(",")
-                    if (i[0] == student_number):
+                    if i[0] == student_number:
                         showc = (courses.show_a_course(i[1].strip())).strip()
                         print("\t" + showc[2:])
 
@@ -90,10 +91,11 @@ def admin_li():
 
             elif ch == '5':
                 os.system('cls')
-                chek_edit = Student()
+                check_edit = Student()
                 student_number = input("Enter student number to edit: ")
-                print(chek_edit.show_a_student(student_number))
-                if chek_edit.chek_edit(student_number):
+                print(check_edit.show_a_student(student_number))
+                if check_edit.check_edit(student_number):
+                    print(orange + "press enter to skip" + endc + "\n")
                     new_student_number = input("Enter new student number: ")
                     new_fname = input("Enter student first name: ")
                     new_lname = input("Enter student last name: ")
@@ -194,10 +196,11 @@ def admin_li():
 
             elif ch == '5':
                 os.system('cls')
-                chek_edit = Course()
+                check_edit = Course()
                 course_number = input("Enter course number to edit: ")
-                print(chek_edit.show_a_course(course_number))
-                if chek_edit.chek_edit(course_number):
+                print(check_edit.show_a_course(course_number))
+                if check_edit.check_edit(course_number):
+                    print(orange + "press enter to skip" + endc + "\n")
                     new_course_number = input("Enter new course number: ")
                     new_cname = input("Enter course name: ")
                     new_tname = input("Enter teacher name: ")
@@ -287,7 +290,8 @@ def admin_li():
                         with open("users.txt", "w") as File:
                             for item in users:
                                 File.write(item + "\n")
-                    print(green + "you changed your username/password successfully" + endc)
+                        print(green + "you changed your username/password successfully" + endc)
+                    print(red + "wrong input, try again" + endc)
                     input("\npress any key to back:")
 
 
@@ -304,7 +308,7 @@ def admin_li():
              os.system('cls')
              sys.exit(0)
            if a == 'n':
-             continue
+              continue
         else:
             print(red + "Error please try again!!" + endc)
             input("\npress any key to back:")
@@ -434,6 +438,7 @@ def main():
             print("Error! Flag is not correct.")
             continue
 
-if (bMain == False):
+
+if bMain == False:
     bMain = True
     main()

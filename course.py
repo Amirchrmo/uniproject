@@ -1,5 +1,4 @@
-class Course():
-
+class Course(object):
     def list_cs(self):
         course_list = []
         with open("courses.txt", "r") as file:
@@ -21,7 +20,6 @@ class Course():
                 return clist[i]
 
         return False
-    #         student curses
 
     def search(self, course_number):
         findstd = []
@@ -39,7 +37,7 @@ class Course():
         if (b):
             return findstd
         else:
-            return ('\033[31m' + "Not found!!" + '\033[0m')
+            return '\033[31m' + "Not found!!" + '\033[0m'
 
     def show_all_courses(self):
         las = Course.list_cs(self)
@@ -55,7 +53,7 @@ class Course():
         las = Course.cbrowse(self, cnumber)
         cnt = 0
         if las == False:
-            return ('\033[31m' + "Not found!!" + '\033[0m')
+            return '\033[31m' + "Not found!!" + '\033[0m'
         else:
             return ("{}) {}: {} - {}\n\t".format(cnt+1, las['courseID'],
                                               las['cname'], las['tname']))
@@ -78,7 +76,7 @@ class Course():
         else:
             return False
 
-    def chek_edit(self, course_number):
+    def check_edit(self, course_number):
         las = Course.list_cs(self)
         for i, x in enumerate(las):
             if las[i]['courseID'] == course_number:
@@ -89,9 +87,12 @@ class Course():
         las = Course.list_cs(self)
         for i, x in enumerate(las):
             if las[i]['courseID'] == course_number:
-                las[i]['courseID'] = new_course_num
-                las[i]['cname'] = new_name
-                las[i]['tname'] = new_teacher
+                if new_course_num != "":
+                    las[i]['courseID'] = new_course_num
+                if new_name != "":
+                    las[i]['cname'] = new_name
+                if new_teacher != "":
+                    las[i]['tname'] = new_teacher
         with open("courses.txt", 'w') as f:
             with open("courses.txt", 'a') as f:
                 for i, item in enumerate(las):

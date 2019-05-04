@@ -1,10 +1,10 @@
-class Student():
+class Student(object):
     def login(self, username, password):
         users_list = []
         with open("users.txt", "r") as usersfile:
             users_file = usersfile.readlines()
             for users in users_file:
-                if(users != '\n'):
+                if users != '\n':
                     users = users.split(",")
                     users_information = {
                         "username": users[0].strip(),
@@ -55,7 +55,7 @@ class Student():
         if(b):
             return findstd
         else:
-            return ('\033[31m' + "Not found!!" + '\033[0m')
+            return '\033[31m' + "Not found!!" + '\033[0m'
 
     def show_all_students(self):
         las = Student.list_std(self)
@@ -70,14 +70,10 @@ class Student():
     def show_a_student(self, student_number):
         las = Student.browse(self, student_number)
         cnt = 0
-        return ("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],las['fname'], las['lname'], las['avarage']))
-# =======
-#         if las == False:
-#             print('\033[31m' + "Not found!!" + '\033[0m')
-#             return 1
-#         else:
-#             print("\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],
-# >>>>>>> Stashed changes
+        if las == False:
+            return '\033[31m' + "Not found!!" + '\033[0m'
+        else:
+            return "\n{}) {}: {} {}, {}\n\t".format(cnt+1, las['studentID'],las['fname'], las['lname'], las['avarage'])
 
     def show_search(self, student_number):
         las = Student.search(self, student_number)
@@ -90,14 +86,14 @@ class Student():
         return result
 
     def add(self, student_numer, fname, lname, avg):
-        if Student.browse(self, student_numer) == False:
+        if not Student.browse(self, student_numer):
             with open("students.txt", "a") as studentsfile:
                 studentsfile.write("{}, {}, {}, {}\n".format(student_numer, fname, lname, avg))
             return True
         else:
             return False
 
-    def chek_edit(self, student_number):
+    def check_edit(self, student_number):
         las = Student.list_std(self)
         for i, x in enumerate(las):
             if las[i]['studentID'] == student_number:
@@ -108,10 +104,14 @@ class Student():
         las = Student.list_std(self)
         for i, x in enumerate(las):
             if las[i]['studentID'] == student_number:
-                las[i]['studentID'] = new_student_num
-                las[i]['fname'] = new_fname
-                las[i]['lname'] = new_lname
-                las[i]['avarage'] = new_avg
+                if new_student_num != "":
+                    las[i]['studentID'] = new_student_num
+                if new_fname != "":
+                    las[i]['fname'] = new_fname
+                if new_lname != "":
+                    las[i]['lname'] = new_lname
+                if new_avg != "":
+                    las[i]['avarage'] = new_avg
         with open("students.txt", 'w') as f:
             with open("students.txt", 'a') as f:
                 for i, item in enumerate(las):
