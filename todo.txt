@@ -1,0 +1,12 @@
+TODO:
+
+users : byad username ro shomare daneshjooyi konim va ye bakhsh
+be onvane esm ezafe konim, baraye ostad ha ham hamintor.
+
+courses : bayad ye bakhshe id e ostad ezafe konim.
+
+project : bazi menu ha ro bayad too dar too konim va bakhshe masool amoozesh ro dorost konim.
+
+??? : be shakhse tarsidam :| <- be in bakhsh tavajoh nakon
+
+Fekr konam ba hamina beshe felan marhale 2 ro tamoom kard
