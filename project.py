@@ -318,7 +318,66 @@ def manager_li():
     pass
 
 def teacher_li():
-    pass
+    while 1:
+        os.system('cls')
+        print(green, "Logged as in 'Teacher' ")
+        print(endc)
+        print("--Main Menu")
+        print("  |- 1) List all Courses ")
+        print("  |- 2) Browse a Course ")
+        print("  |- 3) Search Course")
+        print("  |- 4) Giving Score to students")
+        print("  |- 5) Change password ")
+        print("  |- 6) Log-out ")
+        print("  |- 7) Exit ")
+        ch = input("\nchoose(1_7):")
+
+        if ch == '1':
+            os.system('cls')
+            students = Course()
+            print(students.show_all_courses())
+            input("\npress any key to back:")
+            continue
+
+        elif ch == '2':
+            os.system('cls')
+            students = Course()
+            student_number = input("Enter course number: ")
+            print(students.show_a_course(student_number))
+            input("\npress any key to back:")
+            continue
+
+        elif ch == '3':
+            os.system('cls')
+            students = Course()
+            cnumber = input("Enter course number: ")
+            print(students.show_search(cnumber))
+            input("\npress any key to back:")
+            continue
+
+        elif ch == '4':
+
+            #TODO: Input student number then delete continue.
+            continue
+
+            os.system('cls')
+            students = Student()
+            courses = Course()
+            student_number = use
+
+
+
+        elif ch == '6':
+            os.system('cls')
+            main()
+            return
+        elif ch == '7':
+            a = input(red + "are you sure(y/n)?" + endc)
+            if a == 'y':
+                os.system('cls')
+                sys.exit(0)
+            if a == 'n':
+                continue
 
 def student_li():
     while 1:

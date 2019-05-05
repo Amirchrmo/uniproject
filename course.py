@@ -117,7 +117,7 @@ class Course(object):
 
         with open("student_courses.txt") as file:
             sac = file.readlines()
-            print(sac)
+            # print(sac)
 
         if(command == 0):
             for item in sac:
@@ -125,7 +125,7 @@ class Course(object):
                 if (str(i[0]).strip() == str(studentID)).strip() and (str(i[1]).strip() == str(courseID)).strip():
                     return False
             with open("student_courses.txt", "a") as file:
-                file.write("{},{}".format(studentID, courseID))
+                file.write("{},{},-1".format(studentID, courseID))
             return True
 
         elif(command == 1):
@@ -141,4 +141,22 @@ class Course(object):
                     return True
             return False
 
+    def Scoresys(studentID, courseID, score):
 
+        sac = []
+
+        with open("student_courses.txt") as file:
+            sac = file.readlines()
+
+        for index, item in enumerate(sac):
+            i = item.split(",")
+            if (str(i[0]).strip() == str(studentID).strip()) and (str(i[1]).strip() == str(courseID).strip()):
+                sac.pop(index)
+                sac.append("{},{},{}".format(studentID, courseID, score))
+
+                with open("student_courses.txt", 'w') as f:
+                    with open("student_courses.txt", 'a') as f:
+                        for ii in sac:
+                            f.write(ii)
+                return True
+        return False
