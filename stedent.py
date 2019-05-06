@@ -52,7 +52,7 @@ class Student(object):
             if item.__contains__(student_number):
                 findstd.append(student_list[i])
                 b = True
-        if(b):
+        if b:
             return findstd
         else:
             return '\033[31m' + "Not found!!" + '\033[0m'

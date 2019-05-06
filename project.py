@@ -25,7 +25,6 @@ def admin_li():
         print("  |- 4) Log-out ")
         print("  |- 5) Exit ")
         choose = input("\nchoose(1_5):")
-
         if choose == '1':
             os.system('cls')
             print("--Student Management Menu")
@@ -109,16 +108,20 @@ def admin_li():
                 os.system('cls')
                 remove_std = Student()
                 student_number = input("Enter student number to remove: ")
-                print(remove_std.show_a_student(student_number))
-                x = input(red + "are you sure you want to delete(y|n)? " + endc)
-                if x == 'y':
-                    remove = Student()
-                    remove.remove(student_number)
-                    print("Student deleted!")
+                if remove_std.check_edit(student_number):
+                    print(remove_std.show_a_student(student_number))
+                    x = input(red + "are you sure you want to delete(y|n)? " + endc)
+                    if x == 'y':
+                        remove = Student()
+                        remove.remove(student_number)
+                        print("Student deleted!")
+                        input("\npress any key to back:")
+                    elif x == 'n':
+                        continue
+                else:
+                    print(red + "Not found!!" + endc)
                     input("\npress any key to back:")
-                elif x == 'n':
                     continue
-
                 # add_std = Student()
                 # student_number = input("Enter student number: ")
                 # fname = input("Enter student first name: ")
@@ -215,14 +218,19 @@ def admin_li():
                 os.system('cls')
                 remove_std = Course()
                 course_number = input("Enter course number to remove: ")
-                print(remove_std.show_a_course(course_number))
-                x = input(red + "are you sure you want to delete(y|n)? " + endc)
-                if x == 'y':
-                    remove = Course()
-                    remove.remove(course_number)
-                    print("Course deleted!")
+                if remove_std.check_edit(course_number):
+                    print(remove_std.show_a_course(course_number))
+                    x = input(red + "are you sure you want to delete(y|n)? " + endc)
+                    if x == 'y':
+                        remove = Course()
+                        remove.remove(course_number)
+                        print("Course deleted!")
+                        input("\npress any key to back:")
+                    elif x == 'n':
+                        continue
+                else:
+                    print(red + "Not found!!" + endc)
                     input("\npress any key to back:")
-                elif x == 'n':
                     continue
 
             elif ch == '7':
@@ -239,27 +247,29 @@ def admin_li():
 
                 for item in sac:
                     i = item.split(",")
-                    if (i[0] == student_number):
+                    if i[0] == student_number:
                         showc = (courses.show_a_course(i[1].strip())).strip()
                         print("\t" + showc[2:])
 
+
                 print(courses.show_all_courses())
 
-                caid = input("Please enter the course number you want to add/remove (example : add 1234 or remove 1234):")
+                caid = input("Please enter the course number you want to add/remove "
+                             "(example : add 1234 or remove 1234):")
                 clist = caid.split(" ")
 
-                if(clist[0] == "add"):
+                if clist[0] == "add":
                     clist[0] = 0
-                elif(clist[0] == "remove"):
+                elif clist[0] == "remove":
                     clist[0] = 1
                 else:
                     continue
 
                 a = courses.UnitSelection(student_number, clist[1].strip(), clist[0])
 
-                if(a) and (clist[0] == 1):
+                if a and clist[0] == 1:
                     print("Course removed successfully")
-                elif(a) and (clist[0] == 0):
+                elif a and (clist[0] == 0):
                     print("Course added successfully")
                 else:
                     print(str(a))
@@ -283,7 +293,7 @@ def admin_li():
                 users = File.readlines()
             for inum, item in enumerate(users):
                 i = (item.split(","))
-                if(use == i[0].strip()):
+                if use == i[0].strip():
                     pass4ch = input("Please Enter your password :")
                     if(i[1].strip() == pass4ch):
                         newUsername = input("Please enter your new Username:")

@@ -35,7 +35,7 @@ class Course(object):
             if item.__contains__(course_number):
                 findstd.append(course_list[i])
                 b = True
-        if (b):
+        if b:
             return findstd
         else:
             return '\033[31m' + "Not found!!" + '\033[0m'
@@ -61,12 +61,15 @@ class Course(object):
 
     def show_search(self, course_number):
         las = Course.search(self, course_number)
-        cnt = 0
-        result = '\033[1;32;40m' + "---Found ({}) result \n\n\t".format(len(las)) + '\033[0m'
-        for i, item in enumerate(las):
-            result += "{}) {}: {} - {} ({})\n\t".format(cnt+1, item['courseID'], item['cname'], item['tname'], item['tID'])
-            cnt += 1
-        return result
+        if type(las) == list:
+            cnt = 0
+            result = '\033[1;32;40m' + "---Found ({}) result \n\n\t".format(len(las)) + '\033[0m'
+            for i, item in enumerate(las):
+                result += "{}) {}: {} - {}\n\t".format(cnt+1, item['courseID'], item['cname'], item['tname'])
+                cnt += 1
+            return result
+        else:
+            return las
 
     def add(self, course_number, cname, tname, tid):
 
@@ -122,7 +125,7 @@ class Course(object):
             sac = file.readlines()
             # print(sac)
 
-        if(command == 0):
+        if command == 0:
             for item in sac:
                 i = item.split(",")
                 if (str(i[0]).strip() == str(studentID)).strip() and (str(i[1]).strip() == str(courseID)).strip():
@@ -131,7 +134,7 @@ class Course(object):
                 file.write("{},{},-1".format(studentID, courseID))
             return True
 
-        elif(command == 1):
+        elif command == 1:
             for index, item in enumerate(sac):
                 i = item.split(",")
                 if (str(i[0]).strip() == str(studentID).strip()) and (str(i[1]).strip() == str(courseID).strip()):
