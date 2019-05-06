@@ -77,13 +77,16 @@ class Student(object):
 
     def show_search(self, student_number):
         las = Student.search(self, student_number)
-        cnt = 0
-        result = '\033[1;32;40m' + "---Found ({}) result \n\n\t".format(len(las)) + '\033[0m'
-        for i, item in enumerate(las):
-            result += "{}) {}: {} {}, {}\n\t".format(cnt+1, item['studentID'],
-                                              item['fname'], item['lname'], item['avarage'])
-            cnt += 1
-        return result
+        if type(las) == list:
+            cnt = 0
+            result = '\033[1;32;40m' + "---Found ({}) result \n\n\t".format(len(las)) + '\033[0m'
+            for i, item in enumerate(las):
+                result += "{}) {}: {} {}, {}\n\t".format(cnt+1, item['studentID'],
+                                                  item['fname'], item['lname'], item['avarage'])
+                cnt += 1
+            return result
+        else:
+            return las
 
     def add(self, student_numer, fname, lname, avg):
         if not Student.browse(self, student_numer):

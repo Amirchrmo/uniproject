@@ -8,7 +8,8 @@ class Course(object):
                 course_information = {
                     "courseID": c[0].strip(),
                     "cname": c[1].strip(),
-                    "tname": c[2].strip()
+                    "tname": c[2].strip(),
+                    "tID": c[3].strip()
                  }
                 course_list.append(course_information)
         return course_list
@@ -44,8 +45,8 @@ class Course(object):
         cnt = 0
         result = "All Courses :\n\n\t"
         for i, item in enumerate(las):
-            result += "{}) {}: {} - {}\n\t".format(cnt+1, item['courseID'],
-                                              item['cname'], item['tname'])
+            result += "{}) {}: {} - {} ({})\n\t".format(cnt+1, item['courseID'],
+                                              item['cname'], item['tname'], item['tID'])
             cnt += 1
         return result
 
@@ -55,23 +56,23 @@ class Course(object):
         if las == False:
             return '\033[31m' + "Not found!!" + '\033[0m'
         else:
-            return ("{}) {}: {} - {}\n\t".format(cnt+1, las['courseID'],
-                                              las['cname'], las['tname']))
+            return ("{}) {}: {} - {} ({})\n\t".format(cnt+1, las['courseID'],
+                                              las['cname'], las['tname'], las['tID']))
 
     def show_search(self, course_number):
         las = Course.search(self, course_number)
         cnt = 0
         result = '\033[1;32;40m' + "---Found ({}) result \n\n\t".format(len(las)) + '\033[0m'
         for i, item in enumerate(las):
-            result += "{}) {}: {} - {}\n\t".format(cnt+1, item['courseID'], item['cname'], item['tname'])
+            result += "{}) {}: {} - {} ({})\n\t".format(cnt+1, item['courseID'], item['cname'], item['tname'], item['tID'])
             cnt += 1
         return result
 
-    def add(self, course_number, cname, tname):
+    def add(self, course_number, cname, tname, tid):
 
         if Course.cbrowse(self, course_number) == False:
             with open("courses.txt", "a") as file:
-                file.write("{}, {}, {}\n".format(course_number, cname, tname))
+                file.write("{}, {}, {}, {}\n".format(course_number, cname, tname, tid))
             return True
         else:
             return False
@@ -83,7 +84,7 @@ class Course(object):
                 return True
         return False
 
-    def edit(self, course_number, new_course_num, new_name, new_teacher):
+    def edit(self, course_number, new_course_num, new_name, new_teacher, new_tid):
         las = Course.list_cs(self)
         for i, x in enumerate(las):
             if las[i]['courseID'] == course_number:
@@ -93,10 +94,12 @@ class Course(object):
                     las[i]['cname'] = new_name
                 if new_teacher != "":
                     las[i]['tname'] = new_teacher
+                if new_tid != "":
+                    las[i]['tID'] = new_tid
         with open("courses.txt", 'w') as f:
             with open("courses.txt", 'a') as f:
                 for i, item in enumerate(las):
-                    f.write(las[i]['courseID'] + ", " + las[i]['cname'] + ", " + las[i]['tname'] + "\n")
+                    f.write(las[i]['courseID'] + ", " + las[i]['cname'] + ", " + las[i]['tname'] + ", " + las[i]['tid'] + "\n")
 
     def remove(self, course_number):
         las = Course.list_cs(self)
@@ -106,7 +109,7 @@ class Course(object):
         with open("courses.txt", 'w') as f:
             with open("courses.txt", 'a') as f:
                 for i, item in enumerate(las):
-                    f.write(las[i]['courseID'] + ", " + las[i]['cname'] + ", " + las[i]['tname'] + "\n")
+                    f.write(las[i]['courseID'] + ", " + las[i]['cname'] + ", " + las[i]['tname'] + ", " + las[i]['tid'] + "\n")
 
     def UnitSelection(self, studentID, courseID, command): #TODO: FIX THIS !
 
@@ -141,7 +144,7 @@ class Course(object):
                     return True
             return False
 
-    def Scoresys(studentID, courseID, score):
+    def Scoresys(self, studentID, courseID, score):
 
         sac = []
 
@@ -160,3 +163,12 @@ class Course(object):
                             f.write(ii)
                 return True
         return False
+
+    def ShowMyCourses(self, id):
+
+            l = []
+            clist = Course.list_cs(self)
+            for i, item in enumerate(clist):
+                if item['tID'] == id:
+                    l.append("{} : {} - {} ({})".format(clist[i]['courseID'], clist[i]['cname'], clist[i]['tname'], clist[i]['tid']))
+            return l

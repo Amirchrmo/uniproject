@@ -186,8 +186,9 @@ def admin_li():
                 course_number = input("Enter course number: ")
                 if not add_std.cbrowse(course_number):
                     cname = input("Enter course name: ")
-                    tname = input("Enter teacher name: ")
-                    add_std.add(course_number, cname, tname)
+                    tname = input("Enter teacher name (This name is only for showing to students): ")
+                    tid = input("Enter teacher id: ")
+                    add_std.add(course_number, cname, tname, tid)
                     print(green + "you added a course successfully." + endc)
                 else:
                     print(red + "this course number is already exists!!" + endc)
@@ -204,8 +205,9 @@ def admin_li():
                     new_course_number = input("Enter new course number: ")
                     new_cname = input("Enter course name: ")
                     new_tname = input("Enter teacher name: ")
+                    new_tid = input("Enter teacher id: ")
                     edit = Course()
-                    edit.edit(course_number, new_course_number, new_cname, new_tname)
+                    edit.edit(course_number, new_course_number, new_cname, new_tname, new_tid)
                     print(green + "you edited course successfully." + endc)
                 input("\npress any key to back:")
 
@@ -319,6 +321,8 @@ def manager_li():
 
 def teacher_li():
     while 1:
+        global use
+
         os.system('cls')
         print(green, "Logged as in 'Teacher' ")
         print(endc)
@@ -334,8 +338,13 @@ def teacher_li():
 
         if ch == '1':
             os.system('cls')
-            students = Course()
-            print(students.show_all_courses())
+            courses = Course()
+            print("My courses:")
+            l = courses.ShowMyCourses(use)
+            for item in l:
+                print(item)
+
+            print("\n" + courses.show_all_courses())
             input("\npress any key to back:")
             continue
 
@@ -465,7 +474,7 @@ def student_li():
 
         elif ch == '5':
             users = []
-            global use
+            # global use
             with open("users.txt") as File:
                 users = File.readlines()
             for inum, item in enumerate(users):

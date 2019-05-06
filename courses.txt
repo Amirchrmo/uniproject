@@ -1,3 +1,3 @@
-SE971, Software Engineering, Test Testzadeh, id
-DB971, Database, That Man Over there, id
-DB972, Database for Other People, Someone I Don't Know, id
+SE971, Software Engineering, Test Testzadeh, TT1
+DB971, Database, That Man Over there, TMOT
+DB972, Database for Other People, Someone I Don't Know, IDK
