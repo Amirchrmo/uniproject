@@ -37,7 +37,6 @@ class Student(object):
             if item['studentID'] == student_number:
                 return student_list[i]
         return False
-    #         student curses
 
     def search(self, student_number):
         findstd = []

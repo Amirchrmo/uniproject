@@ -238,43 +238,45 @@ def admin_li():
                 students = Student()
                 courses = Course()
                 student_number = input("Enter student number: ")
+                if students.check_edit(student_number):
+                    print("Student:")
+                    print(students.show_a_student(student_number))
 
-                print("Student:")
-                print(students.show_a_student(student_number))
+                    with open("student_courses.txt") as file:
+                        sac = file.readlines()
 
-                with open("student_courses.txt") as file:
-                    sac = file.readlines()
+                    for item in sac:
+                        i = item.split(",")
+                        if i[0] == student_number:
+                            showc = (courses.show_a_course(i[1].strip())).strip()
+                            print("\t" + showc[2:])
 
-                for item in sac:
-                    i = item.split(",")
-                    if i[0] == student_number:
-                        showc = (courses.show_a_course(i[1].strip())).strip()
-                        print("\t" + showc[2:])
+                    print(courses.show_all_courses())
 
+                    caid = input("Please enter the course number you want to add/remove "
+                                 "(example : add 1234 or remove 1234) or press (b) to go back:")
+                    if caid == 'b':
+                        continue
+                    clist = caid.split(" ")
 
-                print(courses.show_all_courses())
+                    if clist[0] == "add":
+                        clist[0] = 0
+                    elif clist[0] == "remove":
+                        clist[0] = 1
+                    else:
+                        continue
 
-                caid = input("Please enter the course number you want to add/remove "
-                             "(example : add 1234 or remove 1234):")
-                clist = caid.split(" ")
+                    a = courses.UnitSelection(student_number, clist[1].strip(), clist[0])
 
-                if clist[0] == "add":
-                    clist[0] = 0
-                elif clist[0] == "remove":
-                    clist[0] = 1
+                    if a and clist[0] == 1:
+                        print("Course removed successfully")
+                    elif a and clist[0] == 0:
+                        print("Course added successfully")
+                    else:
+                        # print(str(a))
+                        print("Error!!!")
                 else:
-                    continue
-
-                a = courses.UnitSelection(student_number, clist[1].strip(), clist[0])
-
-                if a and clist[0] == 1:
-                    print("Course removed successfully")
-                elif a and (clist[0] == 0):
-                    print("Course added successfully")
-                else:
-                    print(str(a))
-                    print("Error!!!")
-
+                    print(red + "Not found!!" + endc)
                 input("\npress any key to back:")
                 continue
 
@@ -295,17 +297,20 @@ def admin_li():
                 i = (item.split(","))
                 if use == i[0].strip():
                     pass4ch = input("Please Enter your password :")
-                    if(i[1].strip() == pass4ch):
-                        newUsername = input("Please enter your new Username:")
-                        newPassword = input("Please enter your new Password:")
-                        users[inum] = "{}, {}, {}".format(newUsername, newPassword, i[2].strip())
-                        with open("users.txt", "w") as File:
-                            for item in users:
-                                File.write(item + "\n")
-                        print(green + "you changed your username/password successfully" + endc)
-                    print(red + "wrong input, try again" + endc)
+                    if i[1].strip() == pass4ch:
+                            newUsername = input("Please enter your new Username:")
+                            newPassword = input("Please enter your new Password:")
+                            if newUsername and newPassword != "":
+                                users[inum] = "{}, {}, {}".format(newUsername, newPassword, i[2].strip())
+                                with open("users.txt", "w") as File:
+                                    for item in users:
+                                        File.write(item)
+                                print(green + "you changed your username/password successfully" + endc)
+                            else:
+                                print(red + "wrong input, try again" + endc)
+                    else:
+                        print(red + "wrong input, try again" + endc)
                     input("\npress any key to back:")
-
 
                 else:
                     continue
@@ -375,16 +380,45 @@ def teacher_li():
             continue
 
         elif ch == '4':
-
-            #TODO: Input student number then delete continue.
-            continue
-
             os.system('cls')
             students = Student()
             courses = Course()
-            student_number = use
-
-
+            print("\nyour courses:")
+            l = courses.ShowMyCourses(use)
+            for item in l:
+                print(item)
+            course_id = input("\nplease enter course ID:")
+            student_id = input("please enter student ID:")
+            score = input("please rate:")
+            if courses.Scoresys(student_id, course_id, score):
+                print("rating successfully!")
+            else:
+                print("Error!!")
+            input("\npress any key to back:")
+            continue
+        #todo mozmoz
+        elif ch == '5':
+            users = []
+            # global use
+            with open("users.txt") as File:
+                users = File.readlines()
+            for inum, item in enumerate(users):
+                i = (item.split(","))
+                if use == i[0].strip():
+                    pass4ch = input("Please Enter your password :")
+                    if i[1].strip() == pass4ch:
+                        newPassword = input("Please enter your new Password:")
+                        if newPassword != "":
+                            users[inum] = "{}, {}, {}".format(i[0].strip(), newPassword, i[2].strip())
+                            with open("users.txt", "w") as File:
+                                for item in users:
+                                    File.write(item)
+                            print(green + "you changed your password successfully" + endc)
+                        else:
+                            print(red + "wrong input, try again" + endc)
+                    else:
+                        print(red + "wrong input, try again" + endc)
+                    input("\npress any key to back:")
 
         elif ch == '6':
             os.system('cls')
@@ -414,10 +448,19 @@ def student_li():
         ch = input("\nchoose(1_7):")
         if ch == '1':
             os.system('cls')
-            students = Course()
-            print(students.show_all_courses())
+            courses = Course()
+            with open("student_courses.txt") as file:
+                sac = file.readlines()
+            print("All your courses:\n")
+            for item in sac:
+                i = item.split(",")
+                if i[0] == use:
+                    showc = (courses.show_a_course(i[1].strip())).strip()
+                    print("\t" + showc[2:])
+            print('\n' + courses.show_all_courses())
             input("\npress any key to back:")
             continue
+
 
         elif ch == '2':
             os.system('cls')
@@ -436,10 +479,6 @@ def student_li():
             continue
 
         elif ch == '4':
-
-            #TODO: Set student number as username for all students then delete continue.
-            continue
-
             os.system('cls')
             students = Student()
             courses = Course()
@@ -462,9 +501,9 @@ def student_li():
             caid = input("Please enter the course number you want to add/remove (example : add 1234 or remove 1234):")
             clist = caid.split(" ")
 
-            if(clist[0] == "add"):
+            if clist[0] == "add":
                 clist[0] = 0
-            elif(clist[0] == "remove"):
+            elif clist[0] == "remove":
                 clist[0] = 1
             else:
                 continue
@@ -493,13 +532,17 @@ def student_li():
                     pass4ch = input("Please Enter your password :")
                     if i[1].strip() == pass4ch:
                         newPassword = input("Please enter your new Password:")
-                        users[inum] = "{}, {}, {}".format(i[0].strip(), newPassword, i[2].strip())
-                        with open("users.txt", "w") as File:
-                            for item in users:
-                                File.write(item + "\n")
-                    print(green + "you changed your password successfully" + endc)
+                        if newPassword != "":
+                            users[inum] = "{}, {}, {}".format(i[0].strip(), newPassword, i[2].strip())
+                            with open("users.txt", "w") as File:
+                                for item in users:
+                                    File.write(item)
+                            print(green + "you changed your password successfully" + endc)
+                        else:
+                            print(red + "wrong input, try again" + endc)
+                    else:
+                        print(red + "wrong input, try again" + endc)
                     input("\npress any key to back:")
-
         elif ch == '6':
             os.system('cls')
             main()

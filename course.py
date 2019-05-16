@@ -43,7 +43,7 @@ class Course(object):
     def show_all_courses(self):
         las = Course.list_cs(self)
         cnt = 0
-        result = "All Courses :\n\n\t"
+        result = "All Courses:\n\n\t"
         for i, item in enumerate(las):
             result += "{}) {}: {} - {} ({})\n\t".format(cnt+1, item['courseID'],
                                               item['cname'], item['tname'], item['tID'])
@@ -128,10 +128,12 @@ class Course(object):
         if command == 0:
             for item in sac:
                 i = item.split(",")
-                if (str(i[0]).strip() == str(studentID)).strip() and (str(i[1]).strip() == str(courseID)).strip():
+                if (str(i[0]).strip() == str(studentID).strip()) and (str(i[1]).strip() == str(courseID).strip()):
+                    return False
+                if not Course.check_edit(self, courseID):
                     return False
             with open("student_courses.txt", "a") as file:
-                file.write("{},{},-1".format(studentID, courseID))
+                file.write("{},{},-1\n".format(studentID, courseID))
             return True
 
         elif command == 1:
@@ -148,9 +150,8 @@ class Course(object):
             return False
 
     def Scoresys(self, studentID, courseID, score):
-
+        #todo:mozmoz
         sac = []
-
         with open("student_courses.txt") as file:
             sac = file.readlines()
 
@@ -173,5 +174,6 @@ class Course(object):
             clist = Course.list_cs(self)
             for i, item in enumerate(clist):
                 if item['tID'] == id:
-                    l.append("{} : {} - {} ({})".format(clist[i]['courseID'], clist[i]['cname'], clist[i]['tname'], clist[i]['tid']))
+                    l.append("\t{} : {} - {} ({})".format(clist[i]['courseID'], clist[i]['cname'],
+                                                        clist[i]['tname'], clist[i]['tID']))
             return l
