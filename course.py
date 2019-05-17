@@ -168,12 +168,29 @@ class Course(object):
                 return True
         return False
 
+    def ShowMyStudents(self, id):
+        with open("student_courses.txt") as file:
+            sac = file.readlines()
+        MyStudents = []
+        b = True
+        for raw_item in sac:
+            item = raw_item.split(",")
+            if item[1].strip() == id.strip():
+                b = False
+                MyStudents.append(item[0])
+        if not b:
+            return MyStudents
+        else:
+            return False
+
     def ShowMyCourses(self, id):
 
-            l = []
+            courses = []
+            course_id = []
             clist = Course.list_cs(self)
             for i, item in enumerate(clist):
-                if item['tID'] == id:
-                    l.append("\t{} : {} - {} ({})".format(clist[i]['courseID'], clist[i]['cname'],
+                if item['tID'].strip() == id:
+                    courses.append("\t{} : {} - {} ({})".format(clist[i]['courseID'], clist[i]['cname'],
                                                         clist[i]['tname'], clist[i]['tID']))
-            return l
+                    course_id.append(clist[i]['courseID'].strip())
+            return [courses, course_id]

@@ -385,15 +385,27 @@ def teacher_li():
             courses = Course()
             print("\nyour courses:")
             l = courses.ShowMyCourses(use)
-            for item in l:
+            myCourseList = l[0]
+            myCourseID = l[1]
+
+            for item in myCourseList:
                 print(item)
+
             course_id = input("\nplease enter course ID:")
-            student_id = input("please enter student ID:")
-            score = input("please rate:")
-            if courses.Scoresys(student_id, course_id, score):
-                print("rating successfully!")
-            else:
-                print("Error!!")
+            for id in myCourseID:
+                if course_id == id:
+                    myStudents = courses.ShowMyStudents(course_id)
+                    if not myStudents:
+                        print("You don't have any students.")
+                    else:
+                        student_id = input("please enter student ID:")
+                        score = input("please rate:")
+                        if courses.Scoresys(student_id, course_id, score):
+                            print("rating successfully!")
+                        else:
+                            print("Error!!")
+
+
             input("\npress any key to back:")
             continue
         #todo mozmoz
